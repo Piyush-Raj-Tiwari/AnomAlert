@@ -1,4 +1,5 @@
 import 'package:anom_alert/screens/auth/login.dart';
+import 'package:anom_alert/screens/login_or_register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class MainPage extends StatelessWidget {
           return const HomePage();
         }
         else{
-          return const LoginScreen();
+          return const LoginOrRegisterScreen();
         }
       },),
     );

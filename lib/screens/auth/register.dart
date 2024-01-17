@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,6 +15,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var _enteredEmail = "";
   var _enteredPassword = "";
 
+  Future register() async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _enteredEmail, password: _enteredPassword);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const BackButton(),
+            BackButton(onPressed: (){Navigator.of(context).pop();},),
             Expanded(
                 child: SingleChildScrollView(
               child: Form(
@@ -43,6 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 32,
                       ),
                       TextFormField(
+                        style: const TextStyle(color: Color(0xFF515D6B)),
                         decoration: const InputDecoration(
                           label: Text("Name"),
                           hintText: "Enter your name",
@@ -63,6 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 16,
                       ),
                       TextFormField(
+                        style: const TextStyle(color: Color(0xFF515D6B)),
                         decoration: const InputDecoration(
                           label: Text("Email"),
                           hintText: "Enter your email",
@@ -81,6 +89,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 16,
                       ),
                       TextFormField(
+                        style: const TextStyle(color: Color(0xFF515D6B)),
+                        obscureText: true,
                         decoration: const InputDecoration(
                           label: Text("Password"),
                           hintText: "Enter password",
@@ -101,6 +111,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 16,
                       ),
                       TextFormField(
+                        style: const TextStyle(color: Color(0xFF515D6B)),
+                        obscureText: true,
                         decoration: const InputDecoration(
                           label: Text("Confirm Password"),
                           hintText: "Re-Enter password",
@@ -116,7 +128,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 32,
                       ),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: (){register();
+                            Navigator.pop(context);},
                           child: Text(
                             "Register",
                             style: GoogleFonts.urbanist(

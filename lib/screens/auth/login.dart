@@ -14,9 +14,24 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim());
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
+      SnackBar(content: Text("Successfully signed in as"));
+    } on FirebaseAuthException catch (e) {
+      showDialog(context: context, builder: (context) {
+        return AlertDialog(content: const Text("Incorrect email ID or password"),);
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -29,60 +44,88 @@ class _LoginScreenState extends State<LoginScreen> {
             const BackButton(),
             Expanded(
                 child: SingleChildScrollView(
-              child: Padding(
-                padding:
+                  child: Padding(
+                    padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 36),
-                child: Column(
-                  children: [
-                    Text(
-                      "Welcome back! Glad to see you again",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge!
-                          .copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    TextField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        label: Text("Email"),
-                        hintText: "Enter your email",
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextField(
-                      controller: _passwordController,
-                      decoration: const InputDecoration(
-                        label: Text("Password"),
-                        hintText: "Enter your Password",
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    child: Column(
                       children: [
-                        TextButton(
+                        Text(
+                          "Welcome back! Glad to see you again",
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .titleLarge!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 32,
+                        ),
+                        TextField(
+                          style: const TextStyle(color: Color(0xFF515D6B)),
+                          controller: _emailController,
+                          decoration: const InputDecoration(
+                            label: Text("Email"),
+                            hintText: "Enter your email",
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        TextField(
+                          style: const TextStyle(color: Color(0xFF515D6B)),
+                          obscureText: true,
+                          controller: _passwordController,
+                          decoration: const InputDecoration(
+                            label: Text("Password"),
+                            hintText: "Enter your Password",
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                                onPressed: () {},
+                                child: const Text("Forgot Password?"))
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        ElevatedButton(
+                            onPressed: signIn,
+                            child: Text(
+                              "Login with Email",
+                              style: GoogleFonts.urbanist(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            )),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        OutlinedButton(
                             onPressed: () {},
-                            child: const Text("Forgot Password?"))
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Login with",
+                                  style: GoogleFonts.urbanist(),
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                const Image(
+                                  image:
+                                  AssetImage("assets/images/google-logo.png"),
+                                  height: 24,
+                                  width: 24,
+                                )
+                              ],
+                            ))
                       ],
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    ElevatedButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Login",
-                          style: GoogleFonts.urbanist(
-                              color: Colors.white, fontWeight: FontWeight.w500),
-                        ))
-                  ],
-                ),
-              ),
-            ))
+                  ),
+                ))
           ],
         ),
       ),

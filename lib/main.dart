@@ -1,4 +1,5 @@
 import 'package:anom_alert/firebase_options.dart';
+import 'package:anom_alert/screens/auth/main_page.dart';
 import 'package:anom_alert/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const LoginOrRegisterScreen(),
+      home: const MainPage(),
       theme: AppTheme.theme,
     );
   }
