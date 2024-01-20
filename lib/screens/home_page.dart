@@ -13,7 +13,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Text("My Cameras"),),
+      body: Text("Add a camera to get started"),
     );
   }
 }

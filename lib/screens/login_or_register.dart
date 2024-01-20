@@ -7,7 +7,6 @@ import 'package:transparent_image/transparent_image.dart';
 
 class LoginOrRegisterScreen extends StatelessWidget {
   const LoginOrRegisterScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
