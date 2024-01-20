@@ -5,6 +5,9 @@ class AppTheme {
   AppTheme._();
 
   static ThemeData theme = ThemeData().copyWith(
+      appBarTheme: AppBarTheme(
+        backgroundColor: const Color(0xFFF7F8F9),
+      ),
       inputDecorationTheme: InputDecorationTheme(
           fillColor: const Color(0xFFF7F8F9),
           filled: true,
@@ -43,8 +46,15 @@ class AppTheme {
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ))),
       textTheme: TextTheme(
-          titleLarge:
-              GoogleFonts.urbanist(fontSize: 28, color: Color(0xFF1E1E1E)),
-      ),
+          titleLarge: GoogleFonts.urbanist(
+            fontSize: 28,
+            color: const Color(0xFF1E1E1E),
+          ),
+          titleMedium: GoogleFonts.urbanist(
+              fontSize: 24, color: const Color(0xFF1E1E1E)),
+          bodySmall: GoogleFonts.urbanist(
+              fontSize: 12, color: const Color(0xFF7D94A0)),
+          bodyMedium:
+              GoogleFonts.urbanist(fontSize: 16, fontWeight: FontWeight.w500)),
       colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1E1E1E)));
 }

@@ -7,7 +7,6 @@ import 'package:transparent_image/transparent_image.dart';
 
 class LoginOrRegisterScreen extends StatelessWidget {
   const LoginOrRegisterScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +35,8 @@ class LoginOrRegisterScreen extends StatelessWidget {
             ],
           ),
           const Spacer(),
+          Image.asset("assets/images/logo-fg.png", height: 96,),
+          SizedBox(height: 12,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -48,7 +49,7 @@ class LoginOrRegisterScreen extends StatelessWidget {
               ),
               Text(
                 "Alert",
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500),
               ),
             ],
           ),

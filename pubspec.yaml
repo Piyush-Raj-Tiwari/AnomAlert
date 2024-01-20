@@ -39,10 +39,39 @@ dependencies:
   firebase_core: ^2.24.2
   transparent_image: ^2.0.1
   google_fonts: ^6.1.0
+  google_sign_in: ^6.2.1
+  popover: ^0.2.9
+  http: ^1.2.0
+  flutter_easyloading: ^3.0.5
+  jwt_decoder: ^2.0.1
+  shared_preferences: ^2.2.2
+  email_auth: ^1.1.1
+  flutter_launcher_icons: ^0.13.1
+  flutter_riverpod: ^2.4.10
+  sqflite: ^2.3.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/images/logo.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/images/logo.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/logo.png"
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -66,7 +95,12 @@ flutter:
   assets:
   - assets/images/login-image.png
   - assets/images/google-logo.png
-
+  - assets/images/cctv-camera.png
+  - assets/images/onboarding-bg.png
+  - assets/images/onboarding-1.png
+  - assets/images/onboarding-2.png
+  - assets/images/onboarding-3.png
+  - assets/images/logo-fg.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
