@@ -38,17 +38,19 @@ dependencies:
   firebase_auth: ^4.16.0
   firebase_core: ^2.24.2
   transparent_image: ^2.0.1
-  google_fonts: ^6.1.0
+  google_fonts: ^4.0.4
   google_sign_in: ^6.2.1
   popover: ^0.2.9
-  http: ^1.2.0
+  http: ^0.13.3
+  flutter_mjpeg: ^2.0.4
   flutter_easyloading: ^3.0.5
   jwt_decoder: ^2.0.1
   shared_preferences: ^2.2.2
-  email_auth: ^1.1.1
   flutter_launcher_icons: ^0.13.1
   flutter_riverpod: ^2.4.10
   sqflite: ^2.3.2
+  dio: ^5.4.0
+  video_player: ^2.8.2
 
 dev_dependencies:
   flutter_test:

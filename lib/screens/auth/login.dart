@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:anom_alert/providers/camera_provider.dart';
 import 'package:anom_alert/screens/auth/google_sign_in_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,12 +18,17 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+const Map<String, String> header = {
+  'Content-type': 'application/json',
+  'Accept': 'application/json',
+};
+
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   late SharedPreferences preferences;
   final _client = http.Client();
-  final _loginUrl = Uri.parse("login");
+  final _loginUrl = Uri.parse("$baseUrl/auth/login");
   final _registerUrl = Uri.parse("register");
 
   @override
@@ -38,24 +44,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void logInWithEmail() async {
     http.Response response = await _client.post(_loginUrl,
+        headers: header,
         body: json.encode({
-          "emailId": _emailController.text.trim(),
+          "email": _emailController.text.trim(),
           "password": _passwordController.text.trim()
         }));
 
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
-      if (json["status"] == "Login Successfully") {
-        await EasyLoading.showSuccess(json["status"]);
-        var myToken = json["token"];
-        preferences.setString("token", myToken);
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (ctx) => HomePage(
-                  token: myToken,
-                )));
-      } else {
-        EasyLoading.showError(json["status"]);
-      }
+      //await EasyLoading.showSuccess(json["status"]);
+      var myToken = json["token"];
+      print(json);
+      preferences.setString("token", myToken);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (ctx) => HomePage(
+                token: myToken,
+              )));
     } else {
       await EasyLoading.showError(
           "Error Code : ${response.statusCode.toString()}");

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:email_auth/email_auth.dart';
+
 
 class OtpScreen extends StatelessWidget {
   const OtpScreen({super.key});

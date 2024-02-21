@@ -1,11 +1,12 @@
 import 'package:anom_alert/providers/camera_provider.dart';
+import 'package:anom_alert/providers/token_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AddCamera extends ConsumerWidget {
-  const AddCamera({super.key});
-
+  const AddCamera(this.token,{super.key});
+  final String token;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var _cameraName = "";
@@ -15,7 +16,10 @@ class AddCamera extends ConsumerWidget {
     void _createNewCamera() {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        ref.read(cameraProvider.notifier).addCamera(_cameraName, _rstpCode);
+
+        //print(token);
+        ref.read(cameraProvider.notifier).addCamera(_cameraName, _rstpCode, token);
+        Navigator.pop(context);
       }
     }
 
@@ -79,7 +83,7 @@ class AddCamera extends ConsumerWidget {
                 height: 36,
               ),
               ElevatedButton(
-                  onPressed: _createNewCamera,
+                  onPressed:_createNewCamera,
                   child: Text(
                     "Add Camera",
                     style: GoogleFonts.urbanist(

@@ -36,7 +36,7 @@ class OnboardingContent extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall!
-                      .copyWith(fontWeight: FontWeight.w500)),
+                      .copyWith(fontWeight: FontWeight.w500, color: Colors.black)),
             ],
           ),
         ))

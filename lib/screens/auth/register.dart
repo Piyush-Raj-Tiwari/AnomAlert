@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:anom_alert/providers/camera_provider.dart';
 import 'package:anom_alert/screens/auth/register_error_messages.dart';
 import 'package:anom_alert/screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,6 +17,11 @@ class RegisterScreen extends StatefulWidget {
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
+const Map<String, String> header = {
+  'Content-type': 'application/json',
+  'Accept': 'application/json',
+};
+
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   var _enteredName = "";
@@ -23,7 +29,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var _enteredPassword = "";
   var _reEnteredPassword = "";
   final _client = http.Client();
-  final _registerUrl = Uri.parse("register");
+  final _registerUrl = Uri.parse("$baseUrl/auth/register");
   late SharedPreferences preferences;
 
   void registerUser() async {
@@ -31,17 +37,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
       _formKey.currentState!.save();
 
       http.Response response = await _client.post(_registerUrl,
+          headers: header,
           body: json.encode({
             "name": _enteredName.trim(),
-            "emailId": _enteredEmail.trim(),
+            "email": _enteredEmail.trim(),
             "password": _enteredPassword.trim()
           }));
+      print(response.statusCode);
       if (response.statusCode == 200) {
         var json = jsonDecode(response.body);
         if (json["status"] == "emailId in use") {
           await EasyLoading.showError(json["status"]);
         } else {
           var myToken = json["token"];
+          print(json["token"]);
           preferences.setString("token", myToken);
           EasyLoading.showSuccess(json["status"]);
           Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -55,6 +64,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
             "Error Code : ${response.statusCode.toString()}");
       }
     }
+  }
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initSharedPreference();
+  }
+
+  void initSharedPreference() async {
+    preferences = await SharedPreferences.getInstance();
   }
 
   @override

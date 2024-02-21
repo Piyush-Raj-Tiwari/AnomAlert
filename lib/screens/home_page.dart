@@ -1,5 +1,7 @@
 import 'package:anom_alert/providers/camera_provider.dart';
+import 'package:anom_alert/providers/token_provider.dart';
 import 'package:anom_alert/widgets/add_camera.dart';
+import 'package:anom_alert/widgets/drawer.dart';
 import 'package:anom_alert/widgets/new_camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +20,23 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   //final user = FirebaseAuth.instance.currentUser;
+  late Future<void> _camerasFuture;
 
-  void addCamera() {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _camerasFuture =
+        ref.read(cameraProvider.notifier).fetchCameras(widget.token);
+  }
+
+  void addCamera(String newToken) {
     showModalBottomSheet(
         context: context,
         useSafeArea: true,
         isScrollControlled: true,
         builder: (ctx) {
-          return const AddCamera();
+          return AddCamera(newToken);
         });
   }
 
@@ -51,11 +62,12 @@ class _HomePageState extends ConsumerState<HomePage> {
         ),
       ],
     );
-    if(_myCameras.isNotEmpty){
-      mainContent = Column(crossAxisAlignment: CrossAxisAlignment.center,children: [
-        for(var cam in _myCameras)
-          NewCamera(cam),
-      ],);
+    if (_myCameras.isNotEmpty) {
+      mainContent = ListView(
+        children: [
+          for (var cam in _myCameras) NewCamera(cam, token: widget.token,),
+        ],
+      );
     }
     return Scaffold(
       backgroundColor: const Color(0xFFF7F8F9),
@@ -66,38 +78,23 @@ class _HomePageState extends ConsumerState<HomePage> {
               color: Theme.of(context).colorScheme.onBackground,
               fontWeight: FontWeight.bold),
         ),
-        //backgroundColor: const Color(0xFF1E1E1E),
-        actions: [
-          IconButton(
-              onPressed: () {
-                showPopover(
-                    context: context,
-                    bodyBuilder: (context) {
-                      return Column(
-                        children: [
-                          GestureDetector(
-                            child: Text("Log Out"),
-                          ),
-                        ],
-                      );
-                    },
-                    direction: PopoverDirection.top,
-                    width: 250,
-                    height: 150,
-                    backgroundColor: Colors.black54);
-              },
-              icon: const Icon(
-                Icons.more_vert,
-                color: Colors.white70,
-              ))
-        ],
       ),
-      body: mainContent,
+      drawer: HamburgerMenu(),
+      body: FutureBuilder(
+          future: _camerasFuture,
+          builder: (context, snapshot) =>
+              snapshot.connectionState == ConnectionState.waiting
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : mainContent),
       floatingActionButton: Container(
         height: 48,
         width: 48,
         child: IconButton(
-          onPressed: addCamera,
+          onPressed: () {
+            addCamera(widget.token);
+          },
           icon: Icon(
             Icons.add,
             color: Colors.white,
