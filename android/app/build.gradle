@@ -1,7 +1,9 @@
+
 plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()
@@ -21,6 +23,8 @@ def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
 
 android {
     namespace "com.example.anom_alert"
@@ -67,4 +71,6 @@ flutter {
 
 dependencies {
     implementation 'com.android.support:multidex:2.0.1'
+    implementation platform('com.google.firebase:firebase-bom:32.7.2')
+    implementation 'com.google.firebase:firebase-analytics'
 }

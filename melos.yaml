@@ -1,0 +1,5 @@
+name: anom_alert
+
+packages:
+  - apps/**
+  - packages/**

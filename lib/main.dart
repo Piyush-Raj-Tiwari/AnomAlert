@@ -1,26 +1,59 @@
-import 'package:anom_alert/firebase_options.dart';
-import 'package:anom_alert/models/camera.dart';
-import 'package:anom_alert/screens/auth/main_page.dart';
-import 'package:anom_alert/screens/auth/otp.dart';
-import 'package:anom_alert/screens/camera_detail.dart';
+import 'package:anom_alert/api/firebase_api.dart';
 import 'package:anom_alert/screens/home_page.dart';
 import 'package:anom_alert/screens/onboarding/onboarding_main.dart';
 import 'package:anom_alert/theme.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'screens/onboarding/onboarding_content.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'screens/login_or_register.dart';
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("Handling a background message: ${message.messageId}");
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await FirebaseApi().initNotifications();
+  final token = await FirebaseMessaging.instance.getToken(vapidKey: "BOIgLBQCEnKa0V99S4gncnr_1mhgnS6aVKwV1AR_bWvSsESA8TR2_hHF4LESLfeirWoz8kt8RovfVPJTq7uxB_E");
+  print(token);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+
   SharedPreferences preferences = await SharedPreferences.getInstance();
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print("Foreground Message Data: ${message.data}");
+    // Handle the message here
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    print("Message opened app: ${message.data}");
+    // Handle the message here
+  });
+
+
+
+  // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+  //   print("message : $message");
+  //   //Navigator.pushReplacement(context, newRoute)
+  // });
+  //
+  // FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage? message){
+  //   if(message!=null){
+  //     print("message2 : $message");
+  //   }
+  // });
+  //
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   runApp(ProviderScope(
     child: MyApp(
@@ -28,6 +61,8 @@ void main() async {
     ),
   ));
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.token});

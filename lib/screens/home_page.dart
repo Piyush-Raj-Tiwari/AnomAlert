@@ -1,12 +1,9 @@
 import 'package:anom_alert/providers/camera_provider.dart';
-import 'package:anom_alert/providers/token_provider.dart';
 import 'package:anom_alert/widgets/add_camera.dart';
 import 'package:anom_alert/widgets/drawer.dart';
 import 'package:anom_alert/widgets/new_camera.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:popover/popover.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomePage extends ConsumerStatefulWidget {

@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:anom_alert/providers/camera_provider.dart';
-import 'package:anom_alert/screens/auth/register_error_messages.dart';
 import 'package:anom_alert/screens/home_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;

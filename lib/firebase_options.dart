@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,34 +49,20 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyACNG2SKCErW_hqIqhzwm1_8N7CRbu95wA',
-    appId: '1:555773019046:web:c695de34c85459d590c567',
-    messagingSenderId: '555773019046',
-    projectId: 'shashank-flutter',
-    authDomain: 'shashank-flutter.firebaseapp.com',
-    databaseURL: 'https://shashank-flutter-default-rtdb.firebaseio.com',
-    storageBucket: 'shashank-flutter.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDmPZG9I0BfJhKxrQYFnAeU6p0tX4Ykovw',
-    appId: '1:555773019046:android:f5e6233cbe0aa03090c567',
-    messagingSenderId: '555773019046',
-    projectId: 'shashank-flutter',
-    databaseURL: 'https://shashank-flutter-default-rtdb.firebaseio.com',
-    storageBucket: 'shashank-flutter.appspot.com',
+    apiKey: 'AIzaSyBiMuzZD8TahwWDJOAiTJciPnA2eybaVR0',
+    appId: '1:685258239678:android:244ce9bcc7648f48a878ef',
+    messagingSenderId: '685258239678',
+    projectId: 'anom-alert',
+    storageBucket: 'anom-alert.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBWDaKQ9OfoeH9CziG5chF4mW7PZhdBtXM',
-    appId: '1:555773019046:ios:e54c712ae65ba0a790c567',
-    messagingSenderId: '555773019046',
-    projectId: 'shashank-flutter',
-    databaseURL: 'https://shashank-flutter-default-rtdb.firebaseio.com',
-    storageBucket: 'shashank-flutter.appspot.com',
-    androidClientId: '555773019046-7mlr7pml8ijqe5uh0jrl9h09bpnkdffc.apps.googleusercontent.com',
-    iosClientId: '555773019046-plu9n9oeicn8jh73ocu5qgm7cr029ere.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDrgiPUa0bEImq6RGno6DpsP6cVrmHQnIU',
+    appId: '1:685258239678:ios:701475b3ddfa736ea878ef',
+    messagingSenderId: '685258239678',
+    projectId: 'anom-alert',
+    storageBucket: 'anom-alert.appspot.com',
     iosBundleId: 'com.example.anomAlert',
   );
 }
