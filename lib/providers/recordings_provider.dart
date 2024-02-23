@@ -19,15 +19,17 @@ class RecordingsNotifier extends StateNotifier<List<Recording>> {
       print("no token");
       return;
     }
-
+    //print("$baseUrl/recording/get_recordings?id=${selectedCamera.id!}");
     final response = await http.get(
-      Uri.parse("$baseUrl/recordings/get_recordings?id=${selectedCamera.id!}"),
+      Uri.parse("$baseUrl/recording/get_recordings?id=${selectedCamera.id!}"),
+
       headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Bearer $token'
       },
     );
+    print(response.body);
 
     if (response.statusCode == 200) {
       List<Recording>finalRecordings = [];

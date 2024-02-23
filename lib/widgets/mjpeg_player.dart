@@ -8,6 +8,7 @@ class MjpegPlayer extends HookWidget {
   final String token;
   @override
   Widget build(BuildContext context) {
+    print("camara is running");
     final isRunning = useState(true);
     return Center(
       child: Mjpeg(
@@ -17,9 +18,9 @@ class MjpegPlayer extends HookWidget {
           print(stack);
           return Text(error.toString(), style: TextStyle(color: Colors.red));
         },
-        stream:
-        'http://uk.jokkmokk.jp/photo/nr4/latest.jpg',
-        //    streamUrl,
+        stream:  streamUrl ,
+         // 'http://uk.jokkmokk.jp/photo/nr4/latest.jpg',
+        //   streamUrl,
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',

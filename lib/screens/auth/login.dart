@@ -120,12 +120,12 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const BackButton(),
+              BackButton(),
               Expanded(
                   child: SingleChildScrollView(
                 child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 36),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 36),
                   child: Column(
                     children: [
                       Text(
@@ -141,10 +141,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextField(
                         style: const TextStyle(color: Color(0xFF515D6B)),
                         controller: _emailController,
-                        decoration: const InputDecoration(
-                          label: Text("Email"),
-                          hintText: "Enter your email",
-                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                            label: Text("Email"),
+                            hintText: "Enter your email",
+                            hintStyle: GoogleFonts.inter(fontSize: 16)),
                       ),
                       const SizedBox(
                         height: 16,
@@ -153,10 +154,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: const TextStyle(color: Color(0xFF515D6B)),
                         obscureText: true,
                         controller: _passwordController,
-                        decoration: const InputDecoration(
-                          label: Text("Password"),
-                          hintText: "Enter your Password",
-                        ),
+                        decoration: InputDecoration(
+                            label: Text("Password"),
+                            hintText: "Enter your Password",
+                            hintStyle: GoogleFonts.inter(fontSize: 16)),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,

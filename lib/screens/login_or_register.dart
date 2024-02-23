@@ -11,6 +11,7 @@ class LoginOrRegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Stack(
             children: [

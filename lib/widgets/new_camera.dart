@@ -1,25 +1,55 @@
+import 'dart:convert';
+
+import 'package:anom_alert/providers/camera_provider.dart';
 import 'package:anom_alert/screens/camera_detail.dart';
 import 'package:anom_alert/screens/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:anom_alert/models/camera.dart';
 
 class NewCamera extends StatelessWidget {
-  const NewCamera(this.camera, {required this.token,super.key});
+  const NewCamera(this.camera, {required this.token, super.key});
 
   final Camera camera;
   final String token;
 
   @override
   Widget build(BuildContext context) {
-    void onPressCamera() async{
-      final reply = await Navigator.of(context).push<String>(
-          MaterialPageRoute(builder: (ctx) => CameraDetailsScreen(camera, token: token,)));
-      if(reply=="delete"){
+    void onPressCamera() async {
+      final reply = await Navigator.of(context).push<String>(MaterialPageRoute(
+          builder: (ctx) => CameraDetailsScreen(
+                camera,
+                token: token,
+              )));
+      if (reply == "delete") {
         print("delete");
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>HomePage(token: token,)));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (ctx) => HomePage(
+                  token: token,
+                )));
+      } else {
+        print("start");
+        final notificationToken = await FirebaseMessaging.instance.getToken(
+            vapidKey:
+                "BOIgLBQCEnKa0V99S4gncnr_1mhgnS6aVKwV1AR_bWvSsESA8TR2_hHF4LESLfeirWoz8kt8RovfVPJTq7uxB_E");
+        print(notificationToken);
+        Future.delayed(Duration(seconds: 5), () {
+          final response = http.post(Uri.parse("$baseUrl/user/start"),
+              headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer $token'
+              },
+              body: jsonEncode(<String, String>{
+                'camera_id': camera.id!,
+                'device_token': notificationToken!
+              }));
+        });
       }
     }
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       child: InkWell(
@@ -54,17 +84,20 @@ class NewCamera extends StatelessWidget {
                         ? Text("Current Status : ON")
                         : Text("Current Status : OFF"),
                     Spacer(),
-                    Text(
-                      "Anomaly detected",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(color: Colors.yellow),
-                    ),
+                    // Text(
+                    //   "Anomaly detected",
+                    //   style: Theme.of(context)
+                    //       .textTheme
+                    //       .bodyMedium!
+                    //       .copyWith(color: Colors.yellow),
+                    // ),
                   ],
                 ),
                 const Spacer(),
-                Image.asset("assets/images/cctv-camera.png",height: 100,),
+                Image.asset(
+                  "assets/images/cctv-camera.png",
+                  height: 100,
+                ),
               ],
             ),
           ),

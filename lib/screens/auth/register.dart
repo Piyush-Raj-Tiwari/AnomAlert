@@ -115,10 +115,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           TextFormField(
                             style: const TextStyle(color: Color(0xFF515D6B)),
-                            decoration: const InputDecoration(
-                              label: Text("Name"),
-                              hintText: "Enter your name",
-                            ),
+                            keyboardType: TextInputType.name,
+                            decoration: InputDecoration(
+                                label: Text("Name"),
+                                hintText: "Enter your name",
+                                hintStyle: GoogleFonts.inter(fontSize: 16)),
                             validator: (value) {
                               if (value == null ||
                                   value.isEmpty ||
@@ -135,11 +136,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: 16,
                           ),
                           TextFormField(
-                            style: const TextStyle(color: Color(0xFF515D6B)),
-                            decoration: const InputDecoration(
-                              label: Text("Email"),
-                              hintText: "Enter your email",
-                            ),
+                            style: TextStyle(color: Color(0xFF515D6B)),
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                                label: Text("Email"),
+                                hintText: "Enter your email",
+                                hintStyle: GoogleFonts.inter(fontSize: 16)),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "Enter a valid Email ID";
@@ -156,10 +158,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           TextFormField(
                             style: const TextStyle(color: Color(0xFF515D6B)),
                             obscureText: true,
-                            decoration: const InputDecoration(
-                              label: Text("Password"),
-                              hintText: "Enter password",
-                            ),
+                            decoration: InputDecoration(
+                                label: Text("Password"),
+                                hintText: "Enter password",
+                                hintStyle: GoogleFonts.inter(fontSize: 16)),
                             validator: (value) {
                               if (value == null ||
                                   value.isEmpty ||
@@ -178,10 +180,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           TextFormField(
                             style: const TextStyle(color: Color(0xFF515D6B)),
                             obscureText: true,
-                            decoration: const InputDecoration(
-                              label: Text("Confirm Password"),
-                              hintText: "Re-Enter password",
-                            ),
+                            decoration: InputDecoration(
+                                label: Text("Confirm Password"),
+                                hintText: "Re-Enter password",
+                                hintStyle: GoogleFonts.inter(fontSize: 16)),
                             validator: (value) {
                               if (_reEnteredPassword != _enteredPassword) {
                                 return "Password does not match";

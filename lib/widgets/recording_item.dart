@@ -2,6 +2,7 @@ import 'package:anom_alert/providers/recordings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:anom_alert/models/camera.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RecordingsItem extends ConsumerStatefulWidget {
   RecordingsItem(this.camera, {super.key});
@@ -19,9 +20,16 @@ class _RecordingsItemState extends ConsumerState<RecordingsItem> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    super.initState();
+    //super.initState();
     _recordingsFuture =
         ref.read(recordingProvider.notifier).fetchRecordings(widget.camera);
+  }
+
+  _launchURL(String recordingUrl) async {
+    final Uri url = Uri.parse(recordingUrl);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
   }
 
   @override
@@ -39,9 +47,11 @@ class _RecordingsItemState extends ConsumerState<RecordingsItem> {
                     itemCount: allRecordings.length,
                     itemBuilder: (ctx, index) => ListTile(
                           leading: CircleAvatar(
+
                             radius: 24,
+                            child: Icon(Icons.error_outline_rounded),
                           ),
-                          onTap: () {},
+                          onTap:(){ _launchURL(allRecordings[index].video_url!);},
                           title: Text(
                             allRecordings[index].anomaly!,
                             //"Fighting"
