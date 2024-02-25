@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'providers/api_key.dart';
 
 import 'screens/login_or_register.dart';
 
@@ -21,7 +22,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  final notificationToken = await FirebaseMessaging.instance.getToken(vapidKey: "BOIgLBQCEnKa0V99S4gncnr_1mhgnS6aVKwV1AR_bWvSsESA8TR2_hHF4LESLfeirWoz8kt8RovfVPJTq7uxB_E");
+  final notificationToken = await FirebaseMessaging.instance.getToken(vapidKey: api_key);
   print(notificationToken);
   await FirebaseApi().initNotifications();
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:anom_alert/providers/api_key.dart';
 import 'package:anom_alert/providers/camera_provider.dart';
 import 'package:anom_alert/screens/camera_detail.dart';
 import 'package:anom_alert/screens/home_page.dart';
@@ -33,7 +34,7 @@ class NewCamera extends StatelessWidget {
         print("start");
         final notificationToken = await FirebaseMessaging.instance.getToken(
             vapidKey:
-                "BOIgLBQCEnKa0V99S4gncnr_1mhgnS6aVKwV1AR_bWvSsESA8TR2_hHF4LESLfeirWoz8kt8RovfVPJTq7uxB_E");
+                api_key);
         print(notificationToken);
         Future.delayed(Duration(seconds: 5), () {
           final response = http.post(Uri.parse("$baseUrl/user/start"),
