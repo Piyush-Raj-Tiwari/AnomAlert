@@ -47,7 +47,7 @@ AnomAlert is developed using a diverse set of technologies to provide a robust a
 For any inquiries, feedback, or support, please contact us -
 - [Shashank Arora](mailto:shashank.a1508@gmail.com)
 - [Piyush Tiwari](mailto:shashank.a1508@gmail.com)
-- [Harshal Gainer](mailto:shashank.a1508@gmail.com)
+- [Harshal Gainer](mailto:harshalgainer5167@gmail.com)
 
 Let's build a safer and more secure community together with AnomAlert!
 
