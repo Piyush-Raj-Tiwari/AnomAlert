@@ -41,6 +41,8 @@ AnomAlert is developed using a diverse set of technologies to provide a robust a
 
 > For more information about the RTSP URL you may click [here](https://www.getscw.com/decoding/rtsp#:~:text=1.210.-,You%20can%20also%20encode%20credentials%20into%20the%20URL%20by%20entering,and%2012345%20is%20the%20password.)
 
+## Backend API Link
+[AnomAlert Backend](https://github.com/Harshal5167/AnomAlert-Backend)
 
 ## Contact
 
@@ -51,5 +53,3 @@ For any inquiries, feedback, or support, please contact us -
 
 Let's build a safer and more secure community together with AnomAlert!
 
-## Links
-[AnomAlert Backend](https://github.com/Harshal5167/AnomAlert)
